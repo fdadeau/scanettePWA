@@ -47,58 +47,92 @@ table {
 	border-spacing: 0;
 }
 
+/********************************************************
+                Stylesheet for scanner app 
+ ********************************************************/
 
-/******* Stylesheet for scanner app ******/
+body {
+    background-color: dodgerblue;
+    color: white;
+    font-family: Helvetica, sans-serif;
+    font-size: 8vw;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/** Media query for landscape orientation */
+@media all and (orientation: landscape) {
+    body:before {
+        content: 'Tournez l\'appareil pour utiliser l\'application';
+        box-sizing: border-box;
+        font-size: 2vw;
+        width: 20vw;
+        padding: 10vw 1vw;
+        line-height: 1.3;
+        height: 36vw;
+        position: absolute; 
+        top: calc(50vh - 18vw);
+        left: 40vw;
+        text-align: center;
+        border-top: solid 4vw white;
+        border-bottom: solid 5vw white;
+        border-left: solid 1vw white;
+        border-right: solid 1vw white;
+        border-radius: 2vw;    
+        transform-origin: center;
+        animation: rotateDevice 2s linear 0s infinite;
+    }
+    body > * {
+        display: none !important;   
+    }
+    @keyFrames rotateDevice {
+        0% {
+            transform: rotate(90deg);   
+        }
+        70% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+}
+
 
 body > * {
-    display: none;
     position: absolute;
+    box-sizing: border-box;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: dodgerblue;
-    color: white;
-    font-family: Helvetica, sans-serif;
+    background-color: inherit;
+    overflow: hidden;
 }
 
-
-/******* Start block ******/
+/************************************ 
+ *          START BLOCK             * 
+*************************************/
 #bcStart {
     display: block;
     color: white;
+    z-index: 100;
+    background-image: linear-gradient(to bottom, #1e90ff, #d000de)
 }
-#bcStart h1 {
-    background-image:url(images/bg-scanette.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 45vh 60vh;
-    position: absolute; 
-    top: 50%;
-    width: 100vw;
-    height: 150vw;
-    box-sizing: border-box;
-    padding: 40vw 20vw;
-    font-size: 5vh;
-    text-align: center;
-    transform: translateY(-50%);
-}
-#bcStart h1:before {
+#bcStart img {
     position: absolute;
-    width: 100vw;
-    left: 0;
-    z-index: 1;
-    font-size: 100vw;
-    content: '\02665';
-    color: deeppink;
-    text-shadow: 0vw 0vw 10vw white;
+    width: 94vw;
+    height: 74vw;
+    left: 3vw;
+    top: calc(50vh - 40vw);
 }
-
 #bcStart p {
     position: absolute;
     bottom: 12vh;
     height: 3vh;
     width: 100%;
+    font-size: 6vw;
     text-align: center;
     overflow: visible;
 }
@@ -114,7 +148,7 @@ body > * {
     right: 10vw;
     background-image: linear-gradient(to left, transparent, white);
     background-position: left;
-    animation: animBulletBack 0.8s infinite linear;
+    animation: animBulletBack 1s infinite linear;
 }
 @keyFrames animBulletBack {
     0% { width: 0vw; }
@@ -125,7 +159,7 @@ body > * {
     right: 10vw;
     border-radius: 50%;
     background-color: white;
-    animation: animBullet 0.8s infinite linear;
+    animation: animBullet 1s infinite linear;
 }
 @keyFrames animBullet {
     0% { right: 8vw; }
@@ -133,71 +167,196 @@ body > * {
 }
     
 
-/******* Infos block ******/
-#bcInfos {
-    display: none;
-    font-size: 6vw;
-}
-#bcInfos h2 {
-    font-size: 12vw;
-    height: 10vh;
-    text-align: center;
-    padding: 2vh 0;
-}
-label {
-    line-height: 1.4;
-    display: block;
-    margin: 4vh 2vh;
-}
-input {
-    font-size: 80%;   
-    width: 80%;
-}
-#bcInfos input:invalid {
-    color: red;
-}
-#bcInfos #btnEnregistrer {
-    position: absolute; 
-    bottom: 4vh;
-    width: 80vw;
-    padding: 2vw 0;
-    text-align: center;
-    left: 10vw;
-    background-color: darkblue;
-    border-radius: 3vw;
-}
 
-/*** Main block ****/
+/************************************ 
+ *            MAIN BLOCK            *
+ * - basket                         *
+ * - history                        *
+ * - parameters                     *
+ ************************************/
+
 #bcMain {
-    display: block;
     background-color: white;
     color: black;
+    font-size: 80%;
 }
+
+/** CSS trick for hiding tabs */
+#bcMain input[type=radio] {
+    position: absolute; 
+    display: none;
+}
+#bcMain input[type=radio] + div {
+    display: none;   
+}
+#bcMain input[type=radio]:checked + div {
+    display: block;
+}
+
+
+/**** Navigation menu *****/
 #bcMain nav {
     display: flex;
     height: 10vw;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
-#bcMain nav button {
+#bcMain nav > * {
     box-sizing: border-box;
-    width: 30vw;
-    padding: 2vw;
+    width: auto;
+    padding: 2.5vw;
+    font-size: 4.5vw;
+    line-height: 6vw;
+    background-color: white;
+    color: black;
+    border: none;
+    position: relative;
+}
+#bcMain nav > * {
+    padding-left: 7vw;   
+    background-repeat: no-repeat;
+    background-size: 5.5vw 5.5vw;
+}
+#bcMain nav #btnBasket {
+    background-position: 0 2vw;
+    background-image: url(images/icon-cart.png);   
+}
+#bcMain nav #btnBasket:after {
+    position: absolute; 
+    display: block;
+    right: -2vw;
+    top: 1vw;
+    font-size: 70%;
+    text-align: center;
+    padding: 0;
+    line-height: 1.5;
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    width: 4.5vw;
+    height: 4.5vw;
+    content: attr(data-number);
+}
+#bcMain nav #btnParams {
+    background-position: 0 2.5vw;
+    background-image: url(images/icon-setup.png);   
+}
+#bcMain nav #btnSend {
+    background-size: 6vw 5vw;
+    background-position: 0 2.5vw;
+    background-image: url(images/icon-transmit.png);   
+}
+
+/******* Parameters panel ******/
+#bcParams {
+    font-size: 4vw;   
+}
+#bcParams label {
+    display: block;
+    line-height: 1.5;
+    margin: 4vh 2vh;
+}
+#bcParams input:invalid {
+    background-color: #FF9999;
+    border-color: red;
+    box-shadow: 0 0 2vw red;
+}
+#bcParams input {
+    width: 80%;
+    color: black;
+    font-size: 4vw;
+    padding: 1vw;
+    border: solid 1px grey;    
+}
+
+
+/******* Basket panel ******/
+#bcMain #bcBasket {
+    position: relative;
+    margin-top: 1vw;
+    height: 85vh;
+    overflow-y: scroll;
+}
+
+/*** :before & :after pseudo-elements used to make the header ***/
+#bcMain #bcBasket:before, #bcMain #bcBasket:after {
+    display: block;
+    color: white; 
+    font-size: 5vw;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: 3vw 2vw;
+}
+#bcMain #bcBasket:before {
+    height: 10vw;
+    width: 100vw;
+    background-color: dodgerblue;
+    content: 'Total : ' attr(data-number) ' articles';   
+}
+#bcMain #bcBasket[data-number="1"]:before {
+    content: 'Total : 1 article' !important;   
+}
+#bcMain #bcBasket:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: attr(data-total) '€';   
+}
+
+/** Internal divs are products descriptions, quantity & prices **/
+#bcMain #bcBasket > div {
+    padding: 4vw 3vw 3vw 3vw;
     font-size: 4vw;
 }
-#bcMain #btnAjouter {
+#bcMain #bcBasket > div:active, button:active {
+    background-color: lightblue;
+}
+#bcMain #bcBasket > div:before {
+    display: inline-block;
+    content: attr(data-quantity) '\00d7';
+    padding-right: 1vw;
+}
+#bcMain #bcBasket > div:after {
+    content: attr(data-price) '€';
+    float: right;
+}
+
+/** Button to clear the basket */
+#bcMain #bcBasket #btnClearBasket {
+    position: relative; 
+    display: block;
+    width: 40vw;
+    text-align: center;
+    font-size: 4.5vw;
+    margin: 10vh auto 0 auto;
+    padding: 2vw;
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 3vw;
+}
+
+
+/******* Scan button ******/
+#bcMain #radBasket:checked ~ #btnScan {
+    display: block;   
+}
+#bcMain #btnScan {
+    display: none;
+    position: fixed;
+    right: 0;
+    bottom: 0;
     width: 0;
     height: 0;
     overflow: visible;
 }
-#bcMain #btnAjouter:before {
+#bcMain #btnScan:before {
     position: fixed;
     z-index: 1;
     border-radius: 50%;
-    width: 15vw;
-    height: 15vw;
+    width: 14vw;
+    height: 14vw;
     box-sizing: border-box;
     line-height: 12vw;
-    font-size: 15vw;
+    font-size: 14vw;
     padding: 0;
     background-color: dodgerblue;
     color: white; 
@@ -207,65 +366,48 @@ input {
     right: 2vh;
     content: '\002B';   
 }
-#bcMain header {
-    box-sizing: border-box;
-    height: 12vw;
-    padding: 4vw 2vw;
-    background-color: dodgerblue;
-    color: white; 
-    font-weight: bold;
-}
-#bcMain header:before {
-    content: attr(data-number) ' articles';   
-}
-#bcMain header[data-number="1"]:before {
-    content: '1 article' !important;   
-}
-#bcMain header:after {
-    display: block;
-    float: right;
-    content: attr(data-total) '€';   
-}
-
-#bcMain main {
-    font-size: 80%;
-    height: 85vh;
-    overflow-y: scroll;
-}
-
-#bcMain nav button {
-    background-color: white;
-    color: black;
-    border: none;
-}
-#bcMain main > div {
-    padding: 2vw 1vw;
-}
-#bcMain main > div:before {
-    display: inline-block;
-    content: attr(data-quantity);
-    width: 4vw;
-}
-#bcMain main > div:after {
-    content: attr(data-price) '€';
-    float: right;
-}
 
 
-#bcScan {
-    height: 40vh;
-    width: 80vw;
-    margin: 30vh 10vw;
-    border-radius: 4vh;
-    box-shadow: 2vw 2vw 2vw black;
+
+/************************************ 
+ *          POPUP BLOCK             * 
+ ************************************/
+#bcPopup {
+    display: none;
+    background-color: rgba(20,20,20,0.5);
+    z-index: 50;
 }
-#bcScan h2 {
-    text-align: center;
-    font-size: 6vw;
-    padding: 2vh 0;
-    font-weight: bold;
-}
-#bcScan label {
+#bcPopup label {
     display: block;
     margin: 3vh;
+}
+#bcUpdate {
+    background-color: white;
+    color: black;
+    width: 80vw;
+    height: 40vw;
+    margin: calc(100% - 30vw) auto;
+    
+    border-radius: 1vw;
+    box-shadow: 1vw 1vw 1vw black;
+}
+#bcUpdate p {
+    text-align: center;
+    font-size: 5vw;
+    padding: 8vw 0 3vw 0;
+    font-weight: bold;
+    text-align: center;   
+}
+#bcUpdate button {
+    width: 14vw;
+    height: 9vw;
+    border: none;
+    font-size: 6vw;
+    border-radius: 3vw;
+    background-color: lightgray;    
+}
+#bcUpdate input {
+    width: 10vw;
+    text-align: center;
+    font-size: 6vw;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -13,41 +13,56 @@
     <link rel="manifest" href="scanettePWA.webmanifest">
     <script src="js/job.js"></script>
     <script src="js/app.js" defer></script>
+    <!-- iOS: 
+        https://medium.com/appscope/designing-native-like-progressive-web-apps-for-ios-1b3cdda1d0e8 https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes">    
+    <link rel="apple-touch-icon" href="single-page-icon.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 
 <body>
+    <!-- First page --> 
     <div id="bcStart">
-        <h1>La<br>Scanette<br>du<br>Master 1</h1>
-        <p>Glissez pour commencer</p>
+        <img src="images/logo_moche.png">
+        <p>Glissez pour démarrer</p>
         <div class="slider"></div>
     </div>
+    
+    <!-- Main bloc -->
     <div id="bcMain">
+        
+        <!-- Navigation -->
         <nav>
-            <button id="btnInfos">Infos</button>
-            <button id="btnHistorique">Historique</button>
-            <button id="btnEnvoyer">Envoyer</button>
+            <label id="btnBasket" for="radBasket" data-number="0">Panier</label>
+            <label id="btnParams" for="radParams">Config.</label>
+            <button id="btnSend">Envoyer</button>
         </nav>
-        <header data-number="0" data-total="0"></header>
-        <main></main>
-        <input id="btnAjouter" type="file" accept="image/*;capture=environment">
-    </div>
-    <div id="bcInfos">
-        <h2>Informations</h2>
-        <div class="flex">
-            <label>Carte de fidélité : <br><input type="number" id="numCarte" required placeholder="12 chiffres" maxsize="12"></label>
-            <label>Votre email :<br><input type="email" id="emailUser" required placeholder="Votre email"></label>
+        
+        <!-- Basket -->
+        <input type="radio" name="radNav" id="radBasket" checked>
+        <div id="bcBasket" data-number="0" data-total="0"></div>
+
+        <!-- Scanner button -->
+        <input id="btnScan" type="file" accept="image/*;capture=environment">
+        
+        <!-- Parameters -->
+        <input type="radio" name="radNav" id="radParams">
+        <div id="bcParams">
+            <label>Carte de fidélité : <br><input type="text" id="userCard" required placeholder="12 chiffres" pattern="[0-9]{12}"></label>
+            <label>Votre email :<br><input type="email" id="userEmail" required placeholder="ex. marie@rebellion.earth"></label>
         </div>
-        <div id="btnEnregistrer">Enregistrer et fermer</div>
+        
     </div>
-    <div id="bcScan">
-        <h2>Ajouter un produit</h2>
-        <label>Code EAN du produit :<br>
-            <input id="codeEAN" type="number">
-        </label>
-        <button class="btnClose"></button>
+    
+    <!-- Popup -->
+    <div id="bcPopup">
+        <div id="bcUpdate">
+            <p>Modifiez la quantité</p>
+            <p><button id="btnMinus">-</button> <input id="numQuantity" type="number" value="1"> <button id="btnPlus">+</button></p>
+        </div>
     </div>
         
-    </aside>
 </body>
 
 </html>

@@ -1,18 +1,32 @@
 "use_strict";
 
-/***
- *      Supermarket scanner application.
- */
+//const TRANMISSION_URL = "http://dept-info.univ-fcomte.fr/licence/SAMP/";
+const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
 
+/************************************************************************
+ *                                                                      *
+ *         Supermarket scanner Progressive Web Application              *
+ *                                                                      *
+ ************************************************************************/
 document.addEventListener("DOMContentLoaded", function(_e) {
     
-    /** User info management */
-    if (localStorage.getItem("infos")) {
-        let obj = JSON.parse(localStorage.getItem("infos"));
-        console.log(obj);
-        document.getElementById("numCarte").value = obj.carte;
-        document.getElementById("emailUser").value = obj.email;
+    /** User information management: card number & email address */    
+    let userinfo = {
+        save: function() {
+            localStorage.setItem("infos", JSON.stringify({ carte: document.getElementById("userCard").value,
+                                                           email: document.getElementById("userEmail").value }));
+        },
+        load: function() {
+            let obj = JSON.parse(localStorage.getItem("infos"));
+            if (obj) {
+                document.getElementById("userCard").value = obj.carte;
+                document.getElementById("userEmail").value = obj.email;
+            }
+        }
     }
+    // loading 
+    userinfo.load();
+    
     
     /** Touch Events related to the bcStart block **/
     let touchStart = null;
@@ -23,34 +37,111 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         let touchEnd = e.changedTouches.item(0).clientX;
         if (touchStart - touchEnd > window.innerWidth / 2) {
             this.style.display = "none";
-            let nextPage = localStorage.getItem("infos") != null ? "bcMain" : "bcInfos";
-            document.getElementById(nextPage).style.display = "block";
         }
         else {
-            document.querySelector("#bcStart p").innerHTML = "Allez, un petit effort..."   
+            document.querySelector("#bcStart p").innerHTML = 
+                (Math.random() < 0.33) ? "Allez, un petit effort..." : 
+                (Math.random() < 0.5) ? "Tu peux pas faire mieux que ça ?" : 
+                    "T'as pas de force dans les doigts ?";
         }
     }, { passive: true });
     
     
-    /** Events related to the bcInfo block **/
-    document.getElementById("btnEnregistrer").addEventListener("click", function(e) {
-        let error = document.querySelector("#bcInfos :invalid");
-        if (error) {
-            alert("Erreurs détectées dans les données saisies");
-            error.focus();   
+    /** Events related to the bcParams block --> auto-save when focus is lost **/
+    document.getElementById("userCard").addEventListener("blur", function(e) {
+        let error = document.querySelector("#userCard:invalid");
+        if (! error) {
+            userinfo.save();
         }
-        else {
-            localStorage.setItem("infos", JSON.stringify({ carte: document.getElementById("numCarte").value, 
-                                                           email: document.getElementById("emailUser").value }));
-            document.getElementById("bcInfos").style.display = "none";
-            document.getElementById("bcMain").style.display = "block";
+    });
+    document.getElementById("userEmail").addEventListener("blur", function(e) {
+        let error = document.querySelector("#userEmail:invalid");
+        if (! error) {
+            userinfo.save();
         }
     });
     
-    /** Events related to the bcMain block **/
-    document.getElementById("btnInfos").addEventListener("click", function() {
-            document.getElementById("bcInfos").style.display = "block";
-            document.getElementById("bcMain").style.display = "none";
+    
+    /** Events related to the bcBasket block --> open a popup to adjust quantities **/
+    document.getElementById("bcBasket").addEventListener("click", function(e) {
+        if (e.target.dataset.quantity) {
+            let popup = document.getElementById("bcPopup");
+            popup.dataset.ean = e.target.dataset.ean;
+            popup.style.display = "block";
+            document.getElementById("numQuantity").value = e.target.dataset.quantity;
+        }
+        else if (e.target.id == "btnClearBasket") {
+            if (confirm("Effacer le contenu du panier ?")) {
+                basket.clear();
+                basket.display();
+            }
+        }
+    });
+    
+    /** Events related to the bcPopup block **/
+    document.getElementById("bcPopup").addEventListener("click", function(e) {
+        switch (e.target.id) {
+            case 'btnPlus':     // --> add one instance of the product to the basket
+                addProduct(this.dataset.ean);
+                document.getElementById("numQuantity").value = basket.content[this.dataset.ean].quantity;
+            break;    
+            case 'btnMinus':    // --> remove one instance of the product
+                removeProduct(this.dataset.ean);
+                if (! basket.content[this.dataset.ean]) {
+                    this.style.display = "none";
+                }
+                else {
+                    document.getElementById("numQuantity").value = basket.content[this.dataset.ean].quantity;
+                }
+            break;    
+            case 'bcPopup':     // --> close when click on background
+                this.style.display = "none";
+            break;
+        }
+    });
+    
+        
+    /** Event related to the send button **/
+    document.getElementById("btnSend").addEventListener("click", function(e) {
+        
+        if (Object.keys(basket.content).length == 0) {
+            alert("Impossible de transmettre un panier vide.");
+            return;
+        }
+
+        let invalid = document.querySelector("#bcParams input:invalid");
+        if (invalid) {
+            alert("Pour envoyer vos achats, vous devez avoir des paramètres valides.");
+            document.getElementById("radParams").checked = true;
+            invalid.focus();
+            return;
+        }
+        
+        if (confirm("Voulez-vous transmettre vos achats ?")) {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        let answer = JSON.parse(this.responseText);
+                        if (answer.status === 'ok') {
+                            alert("Achats transmis avec succès.");
+                            basket.clear();
+                            basket.display();
+                        }
+                        else {
+                            alert("Echec de la transmission des achats");
+                        }
+                    }
+                    else {
+                        alert("Connexion impossible au serveur.");
+                    }
+                }
+            };
+            xhttp.open("POST",TRANMISSION_URL);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            let params = Object.values(basket.content).map(function(e) { return "EAN_" + e.ean + "=" + e.quantity; }).join("&");
+            xhttp.send(params + "&client=" + document.getElementById("userCard").value);
+        }
     });
     
     
@@ -65,12 +156,12 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             addProduct(result[0].Value);
         }
         else {
-            alert("Impossible d'extraire un code-barre");
+            alert("Echec de reconnaissance du code-barre");
         }
     });
-    
+    // invisible picture used to store the picture taken by the camera
     var picture = document.createElement("img");
-    document.getElementById("btnAjouter").addEventListener("change", function (event) {
+    document.getElementById("btnScan").addEventListener("change", function (event) {
         var files = event.target.files;
         if (files && files.length > 0) {
             var file = files[0];
@@ -100,39 +191,43 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         }
     });
     
-    
-    let products = {};
-    
+    /**
+     *  Current basket
+     */
     let basket = {
         content: {},
         add: function(p) {
             if (! products[p]) {
-                return -1;
+                products[p] = { label: "Article inconnu (" + p + ")", price: 0 };
             }
             if (! this.content[p]) {
                 this.content[p] = { ean: p, quantity: 0, label: products[p].label, price: products[p].price, last: 0 };      
             }
             this.content[p].quantity++;
             this.content[p].last = Date.now();
+            this.save();
             return 0;
         },
         display: function() {
-            let main = document.querySelector("#bcMain main");
-            let header = document.querySelector("#bcMain header");
+            let bcBasket = document.querySelector("#bcMain #bcBasket");
             let nb = 0, total = 0;
-            main.innerHTML = "";
+            bcBasket.innerHTML = "";
             Object.values(this.content).sort(function(e1, e2) {
                 return e2.last - e1.last;   
             }).forEach(function(e) {
                 nb += e.quantity;
                 total += e.quantity * e.price;
-                main.innerHTML += "<div data-ean='" + e.ean + 
+                bcBasket.innerHTML += "<div data-ean='" + e.ean + 
                      "' data-quantity='" + e.quantity + 
                      "' data-price='" + e.price + "'>" +
                      e.label + "</div>";
             });
-            header.dataset.total = total;
-            header.dataset.number = nb;
+            if (nb > 0) {
+                bcBasket.innerHTML += "<button id='btnClearBasket'>Vider le panier</button>";
+            }
+            bcBasket.dataset.total = total.toFixed(2);
+            bcBasket.dataset.number = nb;
+            document.querySelector("#bcMain nav #btnBasket").dataset.number = nb;
         },
         remove: function(p) {
             if (! this.content[p]) {
@@ -145,16 +240,31 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                 this.content[p].quantity--;
                 this.content[p].last = Date.now();
             }
+            this.save();
             return 0;
+        }, 
+        clear: function() {
+            this.content = {};
+            this.save();
+        },
+        save: function() {
+            localStorage.setItem("basket", JSON.stringify(this.content));   
+        },
+        load: function() {
+            let c = localStorage.getItem("basket");
+            if (c) {
+                this.content = JSON.parse(c);
+                this.display();
+            }
         }
     };
+    basket.load();
     
     
     function addProduct(ean) {
         let r = basket.add(1*ean);
         if (r == 0) {
             basket.display();
-            document.getElementById("bcScan").display = "none";
         }
         else {
             alert("Ce code n'est pas reconnu.");
@@ -178,24 +288,32 @@ document.addEventListener("DOMContentLoaded", function(_e) {
     }
     
     
-    /** Loading product list **/
-    /** XMLHttpRequest vs. fetch: fetch comes from ES2015, so old devices may not implement it... */ 
-    let xhr = new XMLHttpRequest();
+
+    /********************************************************************************
+     *                          Products database                                   *
+     ********************************************************************************/
+    
+    // The set of known products (read from produits.csv)
+    let products = {};
+    
+    // Loading product list 
+    let xhr = new XMLHttpRequest();     // better than fetch(...) for compatibility with old devices
     xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            readProducts(this.responseText);   
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                this.responseText.split("\n").forEach(function(line) {
+                    let l = line.split(";").map(function(el) { return el.trim(); });
+                    if (l.length == 3) {
+                        products[l[0]] = { label: l[1], price: l[2] };   
+                    }
+                });
+            }
+            else {
+                alert("Impossible d'initialiser la base des produits.");   
+            }
         }
-    }
+    };
     xhr.open("GET", "produits.csv");
     xhr.send();
-    
-    function readProducts(content) {
-        content.split("\n").forEach(function(line) {
-            let l = line.split(";").map(function(el) { return el.trim(); });
-            if (l.length == 3) {
-                products[l[0]] = { label: l[1], price: l[2] };   
-            }
-        });
-    }
     
 });     

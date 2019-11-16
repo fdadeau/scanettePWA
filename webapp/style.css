@@ -1,0 +1,271 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/******* Stylesheet for scanner app ******/
+
+body > * {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: dodgerblue;
+    color: white;
+    font-family: Helvetica, sans-serif;
+}
+
+
+/******* Start block ******/
+#bcStart {
+    display: block;
+    color: white;
+}
+#bcStart h1 {
+    background-image:url(images/bg-scanette.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 45vh 60vh;
+    position: absolute; 
+    top: 50%;
+    width: 100vw;
+    height: 150vw;
+    box-sizing: border-box;
+    padding: 40vw 20vw;
+    font-size: 5vh;
+    text-align: center;
+    transform: translateY(-50%);
+}
+#bcStart h1:before {
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    z-index: 1;
+    font-size: 100vw;
+    content: '\02665';
+    color: deeppink;
+    text-shadow: 0vw 0vw 10vw white;
+}
+
+#bcStart p {
+    position: absolute;
+    bottom: 12vh;
+    height: 3vh;
+    width: 100%;
+    text-align: center;
+    overflow: visible;
+}
+#bcStart p:before, #bcStart p:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -6vh;
+    height: 4vh;
+}
+#bcStart p:before {
+    width: 0vw;
+    right: 10vw;
+    background-image: linear-gradient(to left, transparent, white);
+    background-position: left;
+    animation: animBulletBack 0.8s infinite linear;
+}
+@keyFrames animBulletBack {
+    0% { width: 0vw; }
+    100% { width: 80vw; }
+}
+#bcStart p:after {
+    width: 4vh;
+    right: 10vw;
+    border-radius: 50%;
+    background-color: white;
+    animation: animBullet 0.8s infinite linear;
+}
+@keyFrames animBullet {
+    0% { right: 8vw; }
+    100% { right: 88vw; }
+}
+    
+
+/******* Infos block ******/
+#bcInfos {
+    display: none;
+    font-size: 6vw;
+}
+#bcInfos h2 {
+    font-size: 12vw;
+    height: 10vh;
+    text-align: center;
+    padding: 2vh 0;
+}
+label {
+    line-height: 1.4;
+    display: block;
+    margin: 4vh 2vh;
+}
+input {
+    font-size: 80%;   
+    width: 80%;
+}
+#bcInfos input:invalid {
+    color: red;
+}
+#bcInfos #btnEnregistrer {
+    position: absolute; 
+    bottom: 4vh;
+    width: 80vw;
+    padding: 2vw 0;
+    text-align: center;
+    left: 10vw;
+    background-color: darkblue;
+    border-radius: 3vw;
+}
+
+/*** Main block ****/
+#bcMain {
+    display: block;
+    background-color: white;
+    color: black;
+}
+#bcMain nav {
+    display: flex;
+    height: 10vw;
+    justify-content: space-evenly;
+}
+#bcMain nav button {
+    box-sizing: border-box;
+    width: 30vw;
+    padding: 2vw;
+    font-size: 4vw;
+}
+#bcMain #btnAjouter {
+    border-radius: 50%;
+    width: 15vw;
+    height: 15vw;
+    box-sizing: border-box;
+    line-height: 12vw;
+    font-size: 15vw;
+    padding: 0;
+    background-color: dodgerblue;
+    color: white; 
+    border: none;
+    text-align: center;
+    position: fixed;
+    bottom: 2vh;
+    right: 2vh;
+}
+#bcMain #btnAjouter:before {
+    position: relative; 
+    top: -1vw;
+    content: '\002B';   
+}
+#bcMain header {
+    box-sizing: border-box;
+    height: 12vw;
+    padding: 4vw 2vw;
+    background-color: dodgerblue;
+    color: white; 
+    font-weight: bold;
+}
+#bcMain header:before {
+    content: attr(data-number) ' articles';   
+}
+#bcMain header[data-number=1]:before {
+    content: '1 article';   
+}
+#bcMain header:after {
+    display: block;
+    float: right;
+    content: attr(data-total) ' €';   
+}
+
+#bcMain main {
+    height: 85vh;
+}
+
+
+#bcScan {
+    width: 80%;
+    height: 40vh;
+    top: 50%;
+    left: 50%;
+    border-radius: 4vh;
+    transform: translate(-50%, -50%);
+    box-shadow: 2vw 2vw 2vw black;
+}
+#bcScan h2 {
+    text-align: center;
+    font-size: 6vw;
+    padding: 2vh 0;
+    font-weight: bold;
+}
+#bcScan label {
+    display: block;
+    margin: 3vh;
+}
+
+#takePhoto {
+    position: relative;
+    display: block;
+    margin: 2vw auto;
+    border: none;
+    background-color: white;
+    height: 15vw;
+    width: 15vw;
+    border-radius: 50%;
+    text-align: center;
+}
+#takePhoto:before {
+    display: block;
+    content: '\01F4F7';
+    font-size: 11vw;
+    width: 100%;
+    text-align: center;
+}
+

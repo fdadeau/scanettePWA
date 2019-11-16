@@ -1,1 +1,54 @@
-<H1>Pouet</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="A supermarker scanner designed for PWA teaching purposes.">
+    <meta name="author" content="Fred Dadeau">
+    <meta name="theme-color" content="#0033DD">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="icons/icon-512.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="scanettePWA.webmanifest">
+    <script src="js/job.js"></script>
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+    <div id="bcStart">
+        <h1>La<br>Scanette<br>du<br>Master 1</h1>
+        <p>Glissez pour commencer</p>
+        <div class="slider"></div>
+    </div>
+    <div id="bcMain">
+        <nav>
+            <button id="btnInfos">Infos</button>
+            <button id="btnHistorique">Historique</button>
+            <button id="btnEnvoyer">Envoyer</button>
+        </nav>
+        <header data-number="0" data-total="0"></header>
+        <main></main>
+        <button id="btnAjouter"></button>
+    </div>
+    <div id="bcInfos">
+        <h2>Informations</h2>
+        <div class="flex">
+            <label>Carte de fidélité : <br><input type="number" id="numCarte" required placeholder="12 chiffres" maxsize="12"></label>
+            <label>Votre email :<br><input type="email" id="emailUser" required placeholder="Votre email"></label>
+        </div>
+        <div id="btnEnregistrer">Enregistrer et fermer</div>
+    </div>
+    <div id="bcScan">
+        <h2>Ajouter un produit</h2>
+        <label>Code EAN du produit :<br>
+            <input id="codeEAN" type="number">
+        </label>
+        <input id="takePhoto" type="file" accept="image/*;capture=environment">
+        <button class="btnClose"></button>
+    </div>
+        
+    </aside>
+</body>
+
+</html>

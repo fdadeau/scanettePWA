@@ -316,4 +316,14 @@ document.addEventListener("DOMContentLoaded", function(_e) {
     xhr.open("GET", "produits.csv");
     xhr.send();
     
+    
+    
+    // Solves the 100vh bug on iOS (on iOS: 100vh includes the address bar height) 
+    window.onresize = function() {
+        document.body.height = window.innerHeight;
+    }
+    window.onresize(); // called to initially set the height.
+    
+    
+    
 });     

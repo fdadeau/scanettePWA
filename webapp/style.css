@@ -187,7 +187,7 @@ input {
 #bcMain #btnAjouter {
     width: 0;
     height: 0;
-    z-index: -1;
+    overflow: visible;
 }
 #bcMain #btnAjouter:before {
     position: fixed;

@@ -1,5 +1,9 @@
 "use strict";
 
+/** 
+    Source: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Offline_Service_workers
+*/
+
 // variable definitions 
 var cacheName = 'scanettePWA-v1';
 var contentToCache = [
@@ -36,12 +40,14 @@ self.addEventListener('install', function(e) {
 
 // fecthing data
 self.addEventListener('fetch', function(e) {
+    if (e.request.url.indexOf('http') !== 0) return;
     e.respondWith(
         // if data exists in the cache
         caches.match(e.request).then(function(r) {
             console.log('[Service Worker] Fetching resource: ' + e.request.url);
             // return it or... request it from server if not present in the cache 
             return r || fetch(e.request).then(function(response) {
+                console.log("[Service Worker] Fetching ressource from network");
                 return caches.open(cacheName).then(function(cache) {
                     console.log('[Service Worker] Caching new resource: ' + e.request.url);
                     // caches the downloaded resource

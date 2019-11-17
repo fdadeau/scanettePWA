@@ -220,7 +220,7 @@ body > * {
     background-position: 0 2vw;
     background-image: url(images/icon-cart.png);   
 }
-#bcMain nav #btnBasket:after {
+#bcMain nav #btnBasket #spotBasket {
     position: absolute; 
     display: block;
     right: -2vw;
@@ -234,7 +234,6 @@ body > * {
     border-radius: 50%;
     width: 4.5vw;
     height: 4.5vw;
-    content: attr(data-number);
 }
 #bcMain nav #btnParams {
     background-position: 0 2.5vw;
@@ -369,7 +368,7 @@ body > * {
     width: 14vw;
     height: 14vw;
     box-sizing: border-box;
-    line-height: 12vw;
+    line-height: 15vw;
     font-size: 14vw;
     padding: 0;
     background-color: #7B68EE;
@@ -378,7 +377,11 @@ body > * {
     text-align: center;
     bottom: 2vh;
     right: 2vh;
-    content: '\002B';   
+    content: '';
+    background-image: url("./images/barcode-scanner.png");
+    background-size: 10vw 7.5vw;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 

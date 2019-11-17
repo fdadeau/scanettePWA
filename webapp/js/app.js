@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             }
             bcBasket.dataset.total = total.toFixed(2);
             bcBasket.dataset.number = nb;
-            document.getElementById("#btnBasket").dataset.number = nb;
+            document.getElementById("spotBasket").innerHTML = nb;
         },
         remove: function(p) {
             if (! this.content[p]) {

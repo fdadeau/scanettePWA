@@ -262,12 +262,6 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             let c = localStorage.getItem("basket");
             if (c) {
                 this.content = JSON.parse(c);
-                // update unknown article that have been added to the products since last update. 
-                Object.values(this.content).forEach(function(e) {
-                    if (e.label.startsWith("Article inconnu") && products[e.ean]) {
-                        this.content[e.ean].label = products[e.ean].label;    
-                    }
-                });
                 this.display();
             }
         }
@@ -321,6 +315,14 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                         products[l[0]] = { label: l[1], price: l[2] };   
                     }
                 });
+                // update unknown article that have been added to the products since last update. 
+                Object.values(basket.content).forEach(function(e) {
+                    if (e.label.startsWith("Article inconnu") && products[e.ean]) {
+                        basket.content[e.ean].label = products[e.ean].label;    
+                    }
+                });
+                basket.save();
+
             }
             else {
                 alert("Impossible d'initialiser la base des produits.");   

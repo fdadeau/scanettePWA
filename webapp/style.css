@@ -62,7 +62,7 @@ body {
 }
 
 /** Media query for landscape orientation */
-@media all and (orientation: landscape) {
+@media screen and (min-aspect-ratio: 13/9) {
     body:before {
         content: 'Tournez l\'appareil pour utiliser l\'application';
         box-sizing: border-box;

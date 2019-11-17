@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                         }
                     }
                     else {
-                        bcSend.innerHTML = "<pConnexion impossible au serveur.</p><p>Vérifiez votre connexion internet et réessayez.</p>";
+                        bcSend.innerHTML = "<p>Connexion impossible au serveur.</p><p>Vérifiez votre connexion internet et réessayez.</p>";
                     }
                 }
             };

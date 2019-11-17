@@ -319,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                 Object.values(basket.content).forEach(function(e) {
                     if (e.label.startsWith("Article inconnu") && products[e.ean]) {
                         basket.content[e.ean].label = products[e.ean].label;    
+                        basket.content[e.ean].price = products[e.ean].price;    
                     }
                 });
                 basket.save();

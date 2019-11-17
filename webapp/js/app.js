@@ -223,8 +223,8 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             Object.values(this.content).sort(function(e1, e2) {
                 return e2.last - e1.last;   
             }).forEach(function(e) {
-                nb += 1 * e.quantity;
-                total += 1 * e.quantity * e.price;
+                nb += e.quantity;
+                total += e.quantity * e.price;
                 bcBasket.innerHTML += "<div data-ean='" + e.ean + 
                      "' data-quantity='" + e.quantity + 
                      "' data-price='" + e.price + "'>" +

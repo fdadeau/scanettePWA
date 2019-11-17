@@ -379,7 +379,7 @@ body > * {
     right: 2vh;
     content: '';
     background-image: url("./images/barcode-scanner.png");
-    background-size: 10vw 7.5vw;
+    background-size: 10vw 9vw;
     background-position: center;
     background-repeat: no-repeat;
 }

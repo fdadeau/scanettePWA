@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                     }
                 });
                 basket.save();
-
+                basket.display();
             }
             else {
                 alert("Impossible d'initialiser la base des produits.");   

@@ -52,7 +52,7 @@ table {
  ********************************************************/
 
 body {
-    background-color: dodgerblue;
+    background-color: #7B68EE;
     color: white;
     font-family: Helvetica, sans-serif;
     font-size: 8vw;
@@ -118,7 +118,7 @@ body > * {
     display: block;
     color: white;
     z-index: 100;
-    background-image: linear-gradient(to bottom, #1e90ff, #d000de)
+    background-image: linear-gradient(to bottom, #1e90ff, #7B68EE)
 }
 #bcStart img {
     position: absolute;
@@ -249,6 +249,20 @@ body > * {
 /******* Parameters panel ******/
 #bcParams {
     font-size: 4vw;   
+    margin-top: 1vw;
+}
+#bcParams:before, #bcSend:before {
+    display: block;
+    color: white; 
+    font-size: 5vw;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: 3vw 2vw;
+    height: 10.5vw;
+    background-color: #7B68EE;
+}
+#bcParams:before {
+    content: 'Votre compte';   
 }
 #bcParams label {
     display: block;
@@ -256,7 +270,7 @@ body > * {
     margin: 4vh 2vh;
 }
 #bcParams input:invalid {
-    background-color: #FF9999;
+    background-color: #FFEEEE;
     border-color: red;
     box-shadow: 0 0 2vw red;
 }
@@ -289,7 +303,7 @@ body > * {
 #bcMain #bcBasket:before {
     height: 10.5vw;
     width: 100vw;
-    background-color: dodgerblue;
+    background-color: #7B68EE;
     content: 'Total : ' attr(data-number) ' articles';   
 }
 #bcMain #bcBasket[data-number="1"]:before {
@@ -320,8 +334,8 @@ body > * {
     float: right;
 }
 
-/** Button to clear the basket */
-#bcMain #bcBasket #btnClearBasket {
+/** Buttons */
+#bcMain #bcBasket #btnClearBasket, #bcMain #bcSend #btnTransmit {
     position: relative; 
     display: block;
     width: 40vw;
@@ -329,7 +343,7 @@ body > * {
     font-size: 4.5vw;
     margin: 10vh auto 0 auto;
     padding: 2vw;
-    background-color: dodgerblue;
+    background-color: #7B68EE;
     color: white;
     border-radius: 3vw;
 }
@@ -358,7 +372,7 @@ body > * {
     line-height: 12vw;
     font-size: 14vw;
     padding: 0;
-    background-color: dodgerblue;
+    background-color: #7B68EE;
     color: white; 
     border: none;
     text-align: center;
@@ -367,6 +381,18 @@ body > * {
     content: '\002B';   
 }
 
+
+/******* Scan button ******/
+#bcSend {
+    font-size: 4.5vw;   
+    margin-top: 1vw;
+}
+#bcSend:before {
+    content: 'Transmission des achats';   
+}
+#bcSend p {
+    padding: 15vw 2vw 2vw 2vw;
+}
 
 
 /************************************ 
@@ -392,7 +418,6 @@ body > * {
     box-shadow: 1vw 1vw 1vw black;
 }
 #bcUpdate p {
-    text-align: center;
     font-size: 5vw;
     padding: 8vw 0 3vw 0;
     font-weight: bold;

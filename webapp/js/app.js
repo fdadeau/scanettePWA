@@ -3,6 +3,12 @@
 //const TRANMISSION_URL = "http://dept-info.univ-fcomte.fr/licence/SAMP/";
 const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
 
+// service work registration for offline usage of the application
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./js/ServiceWorker.js');
+};
+
+
 /************************************************************************
  *                                                                      *
  *         Supermarket scanner Progressive Web Application              *
@@ -14,17 +20,21 @@ document.addEventListener("DOMContentLoaded", function(_e) {
     let userinfo = {
         save: function() {
             localStorage.setItem("infos", JSON.stringify({ carte: document.getElementById("userCard").value,
-                                                           email: document.getElementById("userEmail").value }));
+                                                           email: document.getElementById("userEmail").value,
+                                                           nom: document.getElementById("userLastname").value,
+                                                           prenom: document.getElementById("userFirstname").value }));
         },
         load: function() {
             let obj = JSON.parse(localStorage.getItem("infos"));
             if (obj) {
                 document.getElementById("userCard").value = obj.carte;
                 document.getElementById("userEmail").value = obj.email;
+                document.getElementById("userLastname").value = obj.nom;
+                document.getElementById("userFirstname").value = obj.prenom;
             }
         }
     }
-    // loading 
+    // loading at startup
     userinfo.load();
     
     
@@ -47,19 +57,16 @@ document.addEventListener("DOMContentLoaded", function(_e) {
     }, { passive: true });
     
     
-    /** Events related to the bcParams block --> auto-save when focus is lost **/
-    document.getElementById("userCard").addEventListener("blur", function(e) {
-        let error = document.querySelector("#userCard:invalid");
-        if (! error) {
-            userinfo.save();
-        }
-    });
-    document.getElementById("userEmail").addEventListener("blur", function(e) {
-        let error = document.querySelector("#userEmail:invalid");
-        if (! error) {
-            userinfo.save();
-        }
-    });
+    /** Events related to the bcParams block inputs --> auto-save when focus is lost **/
+    let inputs = document.querySelectorAll("#bcParams input[id]");
+    for (let i=0; i < inputs.length; i++) {
+        inputs.item(i).addEventListener("blur", function(e) {
+            let error = document.querySelector("#" + this.id + ":invalid");
+            if (! error) {
+                userinfo.save();
+            }
+        });
+    }
     
     
     /** Events related to the bcBasket block --> open a popup to adjust quantities **/
@@ -103,37 +110,41 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         
     /** Event related to the send button **/
     document.getElementById("btnSend").addEventListener("click", function(e) {
+      
+        let bcSend = document.getElementById("bcSend");
         
         if (Object.keys(basket.content).length == 0) {
-            alert("Impossible de transmettre un panier vide.");
-            return;
+            bcSend.innerHTML = "<p>Impossible de transmettre un panier vide.</p>";
         }
-
-        let invalid = document.querySelector("#bcParams input:invalid");
-        if (invalid) {
-            alert("Pour envoyer vos achats, vous devez avoir des paramètres valides.");
-            document.getElementById("radParams").checked = true;
-            invalid.focus();
-            return;
+        else if (document.querySelector("#bcParams input:invalid")) {
+            bcSend.innerHTML = "<p>Les paramètres de votre compte sont incorrects.</p><p>Allez à la section \"Réglages\" pour les mettre à jour, et recommencez.</p>";
         }
-        
-        if (confirm("Voulez-vous transmettre vos achats ?")) {
+        else {
+            bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><button id='btnTransmit'>Transmettre</button>";   
+        }
+        document.getElementById("radSend").checked = true;
+    });
+                                                        
+    document.getElementById("bcSend").addEventListener("click", function(e) {
+        let bcSend = document.getElementById("bcSend");
+        if (e.target.id == "btnTransmit") {
+            bcSend.innerHTML = "<p>Transmission en cours...</p>";
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4) {
                     if (this.status == 200) {
                         let answer = JSON.parse(this.responseText);
                         if (answer.status === 'ok') {
-                            alert("Achats transmis avec succès.");
+                            bcSend.innerHTML = "<p>Transmission des achats réalisée avec succès.</p>";
                             basket.clear();
                             basket.display();
                         }
                         else {
-                            alert("Echec de la transmission des achats");
+                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><button id='btnTransmit'>Recommencer</button>";
                         }
                     }
                     else {
-                        alert("Connexion impossible au serveur.");
+                        bcSend.innerHTML = "<pConnexion impossible au serveur.</p><p>Vérifiez votre connexion internet et réessayez.</p>";
                     }
                 }
             };
@@ -141,8 +152,10 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             let params = Object.values(basket.content).map(function(e) { return "EAN_" + e.ean + "=" + e.quantity; }).join("&");
             xhttp.send(params + "&client=" + document.getElementById("userCard").value);
-        }
+        }    
     });
+        
+    
     
     
     

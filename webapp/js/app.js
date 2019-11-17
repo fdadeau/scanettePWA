@@ -262,6 +262,12 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             let c = localStorage.getItem("basket");
             if (c) {
                 this.content = JSON.parse(c);
+                // update unknown article that have been added to the products since last update. 
+                Object.values(this.content).forEach(function(e) {
+                    if (e.label.startsWith("Article inconnu") && products[e.ean]) {
+                        this.content[e.ean].label = products[e.ean].label;    
+                    }
+                });
                 this.display();
             }
         }

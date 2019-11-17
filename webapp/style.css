@@ -437,5 +437,6 @@ body > * {
 #bcUpdate input {
     width: 10vw;
     text-align: center;
+    border: none;
     font-size: 6vw;
 }

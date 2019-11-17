@@ -5,7 +5,7 @@
 */
 
 // variable definitions 
-var CACHE_NAME = 'scanettePWA-v1';
+var CACHE_NAME = 'scanettePWA-v3';
 
 var contentToCache = [
   './index.html',    
@@ -21,6 +21,7 @@ var contentToCache = [
   './images/icon-cart.png', 
   './images/icon-setup.png', 
   './images/icon-transmit.png', 
+  './favicon.ico',
   './icons/icon-32.png',
   './icons/icon-64.png',
   './icons/icon-96.png',
@@ -80,4 +81,18 @@ self.addEventListener('fetch', function(evt) {
             })
         })
     );
+});
+
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keyList) => {
+          return Promise.all(keyList.map((key) => {
+        if(CACHE_NAME.indexOf(key) === -1) {
+            console.log("[Service Worker] Cleaning old cache");
+            return caches.delete(key);
+        }
+      }));
+    })
+  );
 });

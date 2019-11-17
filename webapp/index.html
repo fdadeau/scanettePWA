@@ -22,6 +22,19 @@
     <script src="js/job.js"></script>
     <!-- library for reading barcodes -->
     <script src="js/app.js" defer></script>
+    
+    <!-- Script for service worker registration -->
+    <script>   
+        // Register service worker.
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./ServiceWorker.js').then(function(reg) {
+                    console.log('Service worker registered.', reg);
+                }, function (err) { console.log(err); })
+            });
+        }
+    </script>
+    
     </head>
 
 <body>

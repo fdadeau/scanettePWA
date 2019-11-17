@@ -1,12 +1,7 @@
-"use_strict";
+"use strict";
 
 //const TRANMISSION_URL = "http://dept-info.univ-fcomte.fr/licence/SAMP/";
 const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
-
-// service work registration for offline usage of the application
-if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./js/ServiceWorker.js');
-};
 
 
 /************************************************************************

@@ -1,3 +1,5 @@
+"use strict";
+
 // variable definitions 
 var cacheName = 'scanettePWA-v1';
 var contentToCache = [

@@ -11,27 +11,6 @@ const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
  ************************************************************************/
 document.addEventListener("DOMContentLoaded", function(_e) {
     
-    /** User information management: card number & email address */    
-    let userinfo = {
-        save: function() {
-            localStorage.setItem("infos", JSON.stringify({ carte: document.getElementById("userCard").value,
-                                                           email: document.getElementById("userEmail").value,
-                                                           nom: document.getElementById("userLastname").value,
-                                                           prenom: document.getElementById("userFirstname").value }));
-        },
-        load: function() {
-            let obj = JSON.parse(localStorage.getItem("infos"));
-            if (obj) {
-                document.getElementById("userCard").value = obj.carte;
-                document.getElementById("userEmail").value = obj.email;
-                document.getElementById("userLastname").value = obj.nom;
-                document.getElementById("userFirstname").value = obj.prenom;
-            }
-        }
-    }
-    // loading at startup
-    userinfo.load();
-    
     
     /** Touch Events related to the bcStart block **/
     let touchStart = null;
@@ -51,6 +30,28 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         }
     }, { passive: true });
     
+    
+    
+    /** User information management: card number, email address, firstname, lastname */    
+    let userinfo = {
+        save: function() {
+            localStorage.setItem("infos", JSON.stringify({ carte: document.getElementById("userCard").value,
+                                                           email: document.getElementById("userEmail").value,
+                                                           nom: document.getElementById("userLastname").value,
+                                                           prenom: document.getElementById("userFirstname").value }));
+        },
+        load: function() {
+            let obj = JSON.parse(localStorage.getItem("infos"));
+            if (obj) {
+                document.getElementById("userCard").value = obj.carte;
+                document.getElementById("userEmail").value = obj.email;
+                document.getElementById("userLastname").value = obj.nom;
+                document.getElementById("userFirstname").value = obj.prenom;
+            }
+        }
+    }
+    // loading at startup
+    userinfo.load();
     
     /** Events related to the bcParams block inputs --> auto-save when focus is lost **/
     let inputs = document.querySelectorAll("#bcParams input[id]");
@@ -199,20 +200,25 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         }
     });
     
+    
     /**
-     *  Current basket
+     *  Current basket, simple singleton object.
      */
     let basket = {
         content: {},
         add: function(p) {
+            // unknown products
             if (! products[p]) {
                 products[p] = { label: "Article inconnu (" + p + ")", price: 0 };
             }
+            // if product does not aleady exist, add it with quantity 0
             if (! this.content[p]) {
                 this.content[p] = { ean: p, quantity: 0, label: products[p].label, price: products[p].price, last: 0 };      
             }
+            // increase quantity
             this.content[p].quantity++;
             this.content[p].last = Date.now();
+            // save the basket
             this.save();
             return 0;
         },
@@ -220,6 +226,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             let bcBasket = document.querySelector("#bcMain #bcBasket");
             let nb = 0, total = 0;
             bcBasket.innerHTML = "";
+            // sort the content of the basket products (recently-added first)
             Object.values(this.content).sort(function(e1, e2) {
                 return e2.last - e1.last;   
             }).forEach(function(e) {
@@ -230,20 +237,25 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                      "' data-price='" + e.price + "'>" +
                      e.label + "</div>";
             });
+            // button to clear the basket
             if (nb > 0) {
                 bcBasket.innerHTML += "<button id='btnClearBasket'>Vider le panier</button>";
             }
+            // update the surrounding infos 
             bcBasket.dataset.total = total.toFixed(2);
             bcBasket.dataset.number = nb;
             document.getElementById("spotBasket").innerHTML = nb;
         },
         remove: function(p) {
+            // product does not exist in the basket
             if (! this.content[p]) {
                 return -1;
             }
+            // only one remains --> remove entry
             if (this.content[p].quantity == 1) {
                 delete(this.content[p]);   
             }
+            // else decrease quantity
             else {
                 this.content[p].quantity--;
                 this.content[p].last = Date.now();
@@ -251,13 +263,16 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             this.save();
             return 0;
         }, 
+        // clears the basket
         clear: function() {
             this.content = {};
             this.save();
         },
+        // saves to localstorage (key "basket")
         save: function() {
             localStorage.setItem("basket", JSON.stringify(this.content));   
         },
+        // loads from the localstorage (key "basket")
         load: function() {
             let c = localStorage.getItem("basket");
             if (c) {
@@ -266,9 +281,11 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             }
         }
     };
+    // load basket at startup
     basket.load();
     
     
+    /*** Functions called by the IHM to add or remove products ***/
     function addProduct(ean) {
         let r = basket.add(1*ean);
         if (r == 0) {
@@ -332,7 +349,6 @@ document.addEventListener("DOMContentLoaded", function(_e) {
     };
     xhr.open("GET", "produits.csv");
     xhr.send();
-    
     
     
     // Solves the 100vh bug on iOS (on iOS: 100vh includes the address bar height) 

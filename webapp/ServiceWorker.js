@@ -48,7 +48,6 @@ self.addEventListener('fetch', function(evt) {
 
     // discard requests that are not related to the loading of application data
     if (! evt.request.url.startsWith('http')) return;
-    if (evt.request.url.endsWith('favicon.ico')) return;
     
     // if requested on an updatable content, load it from the network and cache it
     if (updatableContent.some(function(uc) { return evt.request.url.includes(uc); })) {

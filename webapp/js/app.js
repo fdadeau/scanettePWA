@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             bcSend.innerHTML = "<p>Les paramètres de votre compte sont incorrects.</p><p>Allez à la section \"Réglages\" pour les mettre à jour, et recommencez.</p>";
         }
         else {
-            bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><p>Adresse " + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
+            bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><p>Adresse d'envoi :<br>" + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
         }
         document.getElementById("radSend").checked = true;
     });
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                             basket.display();
                         }
                         else {
-                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><p>" + JSON.stringify(answer) + "<button id='btnTransmit'>Recommencer</button>";
+                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><p>Status code : " + this.status + "<button id='btnTransmit'>Recommencer</button>";
                         }
                     }
                     else {

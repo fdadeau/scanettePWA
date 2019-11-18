@@ -118,8 +118,6 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         
         bcSend.innerHTML = "<p>TO DO</p>";
         
-        let ht = "<p>" + Object.keys(products).map(e => e + ", " + products[e].label + ", " + products[e].price).join("<br>"); 
-        
         if (Object.keys(basket.content).length == 0) {
             bcSend.innerHTML = "<p>Impossible de transmettre un panier vide.</p>";
         }
@@ -130,7 +128,9 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><p>Votre panier sera envoyé à l'adresse :<br>" + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
         }
         
-        bcSend.innerHTML = bcSend.innerHTML + ht;
+        //let ht = "<p>" + Object.keys(products).map(e => e + ", " + products[e].label + ", " + products[e].price).join("<br>");
+
+        //bcSend.innerHTML = bcSend.innerHTML + ht;
         document.getElementById("radSend").checked = true;
     });
                       

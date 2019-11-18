@@ -297,7 +297,7 @@ créez un fichier manifest pour l'application, que vous n'oublierez pas d'inclur
     est correctement réalisé). </p> 
 
 <p>Vous constaterez que l'application s'installe sur l'appareil et s'exécute en plein écran (sans les 
-    barres de navigation) comme un application native !</p>
+    barres de navigation) comme une application native !</p>
     
 </section>
 
@@ -446,6 +446,9 @@ créez un fichier manifest pour l'application, que vous n'oublierez pas d'inclur
             du produit acheté, et <code><i>quantité</i></code> exprime le nombre d'unités de ce produit 
             qui a été acheté.  </li>
     </ul>
+    
+    <p>L'URL à laquelle la requête sera envoyée est donnée dans la constante URL_TRANSMISSION qui a pour valeur 
+    <code>https://dept-info.univ-fcomte.fr/licence/SAMP/</code></p>
     
     <p>Le serveur renverra un objet JSON contenant un champ <code>status</code> qui sera égal à <code>ok</code> 
         si la requête était correctement formulée ou <code>ko</code> sinon. En cas de réponse positive, un champ 

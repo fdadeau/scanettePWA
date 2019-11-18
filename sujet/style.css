@@ -207,6 +207,15 @@ section {
     width: calc(100% - 250px);
     margin: 0px 0 20px auto; 
     display: none;
+    position: relative;
+}
+
+section:before {
+    content: attr(id);
+    position: absolute;
+    left: 14px;
+    top: 26px;
+    font-weight: bold;
 }
 
 section:target {
@@ -220,16 +229,25 @@ section:target ~ section[id="1"] {
 }
 
 nav {
+    counter-reset: link;
     position: fixed;    
     left: 1vw;
+    margin: 10px 0;
     width: 240px;
     border: solid 1px #222;
 }
 nav a {
+    counter-increment: link;
     display: block;
     padding: 1vw;
     color: black !important;
     text-decoration: none !important;
 }
+nav a:before {
+    content: counter(link) '.';
+    padding-right: 3px;
+}
 
-
+section p {
+    padding: 0 10px;   
+}

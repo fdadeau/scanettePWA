@@ -129,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         else {
             bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><p>Votre panier sera envoyé à l'adresse :<br>" + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
         }
+        
         bcSend.innerHTML = bcSend.innerHTML + ht;
         document.getElementById("radSend").checked = true;
     });

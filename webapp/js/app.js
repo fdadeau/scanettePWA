@@ -1,7 +1,6 @@
 "use strict";
 
 const TRANMISSION_URL = "https://dept-info.univ-fcomte.fr/licence/SAMP/";
-// const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
 
 
 /************************************************************************
@@ -19,10 +18,12 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         touchStart.y = e.changedTouches.item(0).clientY;
     }, { passive: true });
     document.getElementById("bcStart").addEventListener("touchend", function(e) {
+        // horizontal slide (right-to-left --> close this panel)
         if (touchStart.x - e.changedTouches.item(0).clientX > window.innerWidth / 2) {
             this.style.display = "none";
         }
         else {
+            // vertical slide (top-to-bottom --> reload the application)
             if (e.changedTouches.item(0).clientY - touchStart.y > window.innerHeight / 2) {
                 if (confirm("Recharger l'application ?")) {
                     window.location.reload(true);   
@@ -126,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         }
         document.getElementById("radSend").checked = true;
     });
-                                                        
+                      
     document.getElementById("bcSend").addEventListener("click", function(e) {
         let bcSend = document.getElementById("bcSend");
         if (e.target.id == "btnTransmit") {

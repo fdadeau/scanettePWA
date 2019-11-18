@@ -35,8 +35,7 @@
             });
         }
     </script>
-    
-    </head>
+</head>
 
 <body>
     <!-- First page --> 
@@ -66,10 +65,18 @@
         <!-- Parameters -->
         <input type="radio" name="radNav" id="radParams">
         <div id="bcParams">
-            <label>Carte de fidélité : <br><input type="text" id="userCard" required placeholder="12 chiffres" pattern="[0-9]{12}"></label>
-            <label>Email :<br><input type="email" id="userEmail" required placeholder="ex. marie@rebellion.earth"></label>
-            <label>Nom :<br><input type="text" id="userLastname" required placeholder="ex. Laugissielle" pattern="([^\s][A-z0-9À-ž\s]+)"></label>
-            <label>Prénom :<br><input type="text" id="userFirstname" required placeholder="ex. Eugénie" pattern="([^\s][A-z0-9À-ž\s]+)"></label>
+            <label>Carte de fidélité : <br>
+                <input type="text" id="userCard" required placeholder="12 chiffres" pattern="[0-9]{12}">
+            </label>
+            <label>Email :<br>
+                <input type="email" id="userEmail" required placeholder="ex. marie@rebellion.earth">
+            </label>
+            <label>Nom :<br>
+                <input type="text" id="userLastname" required placeholder="ex. Laugissielle" pattern="([^\s][A-z0-9À-ž\s]+)">
+            </label>
+            <label>Prénom :<br>
+                <input type="text" id="userFirstname" required placeholder="ex. Eugénie" pattern="([^\s][A-z0-9À-ž\s]+)">
+            </label>
         </div>
         
         <!-- Basket transmission to the server -->

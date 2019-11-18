@@ -13,23 +13,29 @@ document.addEventListener("DOMContentLoaded", function(_e) {
     
     
     /** Touch Events related to the bcStart block **/
-    let touchStart = null;
+    let touchStart = {x: null, y: null};
     document.getElementById("bcStart").addEventListener("touchstart", function(e) {
-        touchStart = e.changedTouches.item(0).clientX;
+        touchStart.x = e.changedTouches.item(0).clientX;
+        touchStart.y = e.changedTouches.item(0).clientY;
     }, { passive: true });
     document.getElementById("bcStart").addEventListener("touchend", function(e) {
-        let touchEnd = e.changedTouches.item(0).clientX;
-        if (touchStart - touchEnd > window.innerWidth / 2) {
+        if (touchStart.x - e.changedTouches.item(0).clientX > window.innerWidth / 2) {
             this.style.display = "none";
         }
         else {
-            document.querySelector("#bcStart p").innerHTML = 
-                (Math.random() < 0.33) ? "Allez, un petit effort..." : 
-                (Math.random() < 0.5) ? "Tu peux pas faire mieux que ça ?" : 
-                    "T'as pas de force dans les doigts ?";
+            if (e.changedTouches.item(0).clientY - touchStart.y > window.innerHeight / 2) {
+                if (confirm("Recharger l'application ?")) {
+                    window.location.reload(true);   
+                }
+            }
+            else {
+                document.querySelector("#bcStart p").innerHTML = 
+                    (Math.random() < 0.33) ? "Allez, un petit effort..." : 
+                    (Math.random() < 0.5) ? "Tu peux pas faire mieux que ça ?" : 
+                        "T'as pas de force dans les doigts ?";
+            }
         }
     }, { passive: true });
-    
     
     
     /** User information management: card number, email address, firstname, lastname */    

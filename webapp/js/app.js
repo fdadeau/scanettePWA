@@ -131,12 +131,13 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                     if (this.status == 200) {
                         let answer = JSON.parse(this.responseText);
                         if (answer.status === 'ok') {
+                            console.log(answer.basket);
                             bcSend.innerHTML = "<p>Transmission des achats réalisée avec succès.</p>";
                             basket.clear();
                             basket.display();
                         }
                         else {
-                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><button id='btnTransmit'>Recommencer</button>";
+                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><p>" + JSON.stringify(answer) + "<button id='btnTransmit'>Recommencer</button>";
                         }
                     }
                     else {

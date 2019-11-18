@@ -111,6 +111,10 @@ body > * {
     overflow: hidden;
 }
 
+button:active, button:focus {
+    border: none !important;   
+}
+
 /************************************ 
  *          START BLOCK             * 
 *************************************/

@@ -84,7 +84,8 @@ self.addEventListener('fetch', function(evt) {
 
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(
+    e.waitUntil(
+    // cleaning previous caches
     caches.keys().then((keyList) => {
           return Promise.all(keyList.map((key) => {
         if(CACHE_NAME.indexOf(key) === -1) {
@@ -92,6 +93,9 @@ self.addEventListener('activate', (e) => {
             return caches.delete(key);
         }
       }));
-    })
+    }).then() {
+           
+    }
+    //
   );
 });

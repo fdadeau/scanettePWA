@@ -143,11 +143,11 @@ document.addEventListener("DOMContentLoaded", function(_e) {
                             basket.display();
                         }
                         else {
-                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><p>Status code : " + this.status + "<button id='btnTransmit'>Recommencer</button>";
+                            bcSend.innerHTML = "<p>Echec de la transmission des achats.</p><button id='btnTransmit'>Recommencer</button>";
                         }
                     }
                     else {
-                        bcSend.innerHTML = "<p>Connexion impossible au serveur.</p><p>Vérifiez votre connexion internet et réessayez.</p>";
+                        bcSend.innerHTML = "<p>Connexion impossible au serveur.</p><p>Status code : " + this.status + "</p><p>Vérifiez votre connexion internet et réessayez.</p>";
                     }
                 }
             };

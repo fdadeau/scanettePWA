@@ -50,7 +50,7 @@ self.addEventListener('fetch', function(evt) {
     if (! evt.request.url.startsWith('http')) return;
     
     // if requested on an updatable content, load it from the network and cache it
-    if (updatableContent.some(function(uc) { return evt.request.url.includes(uc); })) {
+    if (updatableContent.some(function(uc) { return evt.request.url.endsWith(uc); })) {
         console.log('[Service Worker] Fetching (data) ', evt.request.url);
         evt.respondWith(
             caches.open(CACHE_NAME).then(function(cache) {
@@ -72,6 +72,7 @@ self.addEventListener('fetch', function(evt) {
     }
     
     // otherwise load from cache by default, or fetch it if not present (and update cache)
+    console.log("[Service worker] --> Loading from cache if existing");
     evt.respondWith(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.match(evt.request)

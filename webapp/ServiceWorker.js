@@ -5,7 +5,7 @@
 */
 
 // variable definitions 
-var CACHE_NAME = 'scanettePWA-v5';
+var CACHE_NAME = 'scanettePWA-v1';
 
 var contentToCache = [
   './index.html',    

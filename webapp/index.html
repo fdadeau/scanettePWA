@@ -33,11 +33,6 @@
                     console.log('[Service Worker] Registration successful.');
                 }, function (err) { console.log("[Service Worker] Error in registration", err); })
             });
-            navigator.serviceWorker.getRegistrations().then(function (registrations) {
-                for (let registration of registrations) {
-                    registration.update()
-                }
-            });
         }
     </script>
     

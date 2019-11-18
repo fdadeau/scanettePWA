@@ -46,9 +46,9 @@ self.addEventListener('install', function(e) {
 // fecthing data
 self.addEventListener('fetch', function(evt) {
 
+    console.log('[Service Worker] Fetching (data) ', evt.request.url);
     // if requested on an updatable content, load it from the network and cache it
     if (updatableContent.some(function(uc) { return evt.request.url.endsWith(uc); })) {
-        console.log('[Service Worker] Fetching (data) ', evt.request.url);
         evt.respondWith(
             caches.open(CACHE_NAME).then(function(cache) {
                 return fetch(evt.request)

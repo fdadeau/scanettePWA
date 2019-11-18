@@ -48,9 +48,10 @@ self.addEventListener('fetch', function(evt) {
 
     console.log('[Service Worker] Fetching (data) ', evt.request.url);
     // if requested on an updatable content, load it from the network and cache it
-    if (updatableContent.some(function(uc) { return evt.request.url.endsWith(uc); })) {
+    if (updatableContent.some(function(uc) { return evt.request.url.indexOf(uc) >= 0; })) {
         evt.respondWith(
             caches.open(CACHE_NAME).then(function(cache) {
+                console.log("[Service worker] Trying to fetch from network");
                 return fetch(evt.request)
                     .then(function (response) {
                     // If the response was OK, clone it and store it in the cache.

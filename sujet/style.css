@@ -1,0 +1,235 @@
+body {
+    font-family: Helevetica, Palatino, Verdana;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    background-color: #FFF;
+    width: 100%;
+    margin: 0px auto;
+    padding: 15px;
+}
+
+.figure {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    max-width: 800px;
+}
+
+
+header {
+    margin: -15px -15px 10px -15px;
+    padding: 10px;
+    text-align: center;   
+    background-color: #7777FF;
+    border-bottom: solid 2px #000;
+    }
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFF;
+    line-height: 1.9;
+    text-shadow: 2px 2px 0.2em black;
+}
+
+.pluspetit {
+    display:block;
+    font-size: 20px;   
+}
+
+h2 {
+	color: #333;
+	font-weight: bold;
+	font-size: 18px;
+	margin: 10px 0px 20px 0px;
+	background: #F7E0A5;
+	padding: 4px;
+	clear: both;
+	border-left: 2em solid #F7C749;
+	}
+
+h3 {
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #FFCC33;
+}
+
+h4 {
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 2px solid #000;
+}
+
+p {
+    text-align: justify;
+}
+
+li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+pre {
+    font-size: 14px;
+}
+
+code {
+    font-size: 95%;
+    color: #BB0000;
+    font-weight: bold;
+}
+
+a:link,
+a:visited,
+label {
+    text-decoration: none;
+    color: #0000FF;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0000FF;
+}
+
+a[href^="http"]:hover::after {
+    content: " - " attr(href);
+}
+
+
+.important {
+    color: #BB0000;
+    border: solid 1px #BB0000;
+    margin: 10px 20px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.grammaire {
+    width: 420px;
+    margin-bottom: 10px;
+}
+
+.grammaire td:first-of-type {
+    text-align: right;
+}
+
+.grammaire td:nth-of-type(2) {
+    text-align: center;
+}
+
+.terminal {
+    background-color: black;
+    font-family: courier new;
+    font-size: 14px;
+    color: lightgreen;
+    padding: 5px;
+    text-align: left;
+    width: 60%;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+label {
+    width: auto;
+    display: block;
+}
+
+label:hover {
+    cursor: pointer;
+}
+
+input[type=checkbox] + div {
+    display: none;
+    border: solid 1px #000;
+    background-color: #FFFFEE;
+    padding: 10px;
+    width: 80%;
+}
+
+input[type=checkbox]:checked + div {
+    display: block;
+}
+
+.codesource {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em auto;
+    border: solid 1px #000;
+    padding: 10px;
+    font-size: 90%;
+    max-width: 800px;
+}
+
+.codesource b {
+    color: blue;
+}
+
+.comments {
+    color: green;
+}
+
+
+figure {
+    display: block;
+    margin: 10px auto 20px auto;
+}
+
+figure img {
+    display: inline-block;
+    width: 13vw;
+    height: auto;
+    border-top: solid 2.5vw #222;
+    border-bottom: solid 3.5vw #222;
+    border-left: solid 0.3vw #222;
+    border-right: solid 0.3vw #222;
+    border-radius: 1.5vw;
+    margin: 0 20px;
+}
+
+
+section {
+    padding-top: 10px;
+    width: calc(100% - 250px);
+    margin: 0px 0 20px auto; 
+    display: none;
+}
+
+section:target {
+    display: block;   
+}
+section[id="1"] {
+    display: block;   
+}
+section:target ~ section[id="1"] {
+    display: none;   
+}
+
+nav {
+    position: fixed;    
+    left: 1vw;
+    width: 240px;
+    border: solid 1px #222;
+}
+nav a {
+    display: block;
+    padding: 1vw;
+    color: black !important;
+    text-decoration: none !important;
+}
+
+

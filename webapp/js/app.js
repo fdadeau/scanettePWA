@@ -116,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function(_e) {
       
         let bcSend = document.getElementById("bcSend");
         
+        bcSend.innerHTML = "<p>TO DO</p>";
+        
         let ht = "<p>" + Object.keys(products).map(e => e + ", " + products[e].label + ", " + products[e].price).join("<br>"); 
         
         if (Object.keys(basket.content).length == 0) {

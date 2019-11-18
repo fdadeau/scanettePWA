@@ -119,13 +119,13 @@ document.addEventListener("DOMContentLoaded", function(_e) {
         let ht = "<p>" + Object.keys(products).map(e => e + ", " + products[e].label + ", " + products[e].price).join("<br>"); 
         
         if (Object.keys(basket.content).length == 0) {
-            bcSend.innerHTML += "<p>Impossible de transmettre un panier vide.</p>";
+            bcSend.innerHTML = "<p>Impossible de transmettre un panier vide.</p>";
         }
         else if (document.querySelector("#bcParams input:invalid")) {
-            bcSend.innerHTML += "<p>Les paramètres de votre compte sont incorrects.</p><p>Allez à la section \"Réglages\" pour les mettre à jour, et recommencez.</p>";
+            bcSend.innerHTML = "<p>Les paramètres de votre compte sont incorrects.</p><p>Allez à la section \"Réglages\" pour les mettre à jour, et recommencez.</p>";
         }
         else {
-            bcSend.innerHTML += "<p>Voulez-vous transmettre vos achats ?</p><p>Votre panier sera envoyé à l'adresse :<br>" + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
+            bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><p>Votre panier sera envoyé à l'adresse :<br>" + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
         }
         bcSend.innerHTML = bcSend.innerHTML + ht;
         document.getElementById("radSend").checked = true;

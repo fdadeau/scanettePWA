@@ -85,17 +85,14 @@ self.addEventListener('fetch', function(evt) {
 
 self.addEventListener('activate', (e) => {
     e.waitUntil(
-    // cleaning previous caches
-    caches.keys().then((keyList) => {
-          return Promise.all(keyList.map((key) => {
-        if(CACHE_NAME.indexOf(key) === -1) {
-            console.log("[Service Worker] Cleaning old cache");
-            return caches.delete(key);
-        }
-      }));
-    }).then() {
-           
-    }
-    //
-  );
+        // cleaning previous caches
+        caches.keys().then((keyList) => {
+            return Promise.all(keyList.map((key) => {
+                if(CACHE_NAME.indexOf(key) === -1) {
+                    console.log("[Service Worker] Cleaning old cache");
+                    return caches.delete(key);
+                }
+          }));
+        })
+    );
 });

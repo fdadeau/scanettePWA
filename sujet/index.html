@@ -13,6 +13,9 @@
                 window.requestAnimationFrame(loop);
             })();
         });
+        
+        
+        
     </script>
     
 </head>
@@ -25,19 +28,52 @@
         <H1>TP Software Architecture and Mobile Programming<br>
             Progressive Web Applications</H1>
     </header>    
-        
-    <nav>
-        <a href="#1">Présentation des PWA</a>
-        <a href="#2">Application mobile du TP</a>
-        <a href="#3">Hébergement en HTTPS</a>
-        <a href="#4">Auditer l'application</a>
-        <a href="#5">Application installable</a>
-        <a href="#6">Utilisation hors ligne</a>
-        <a href="#7">Mise à jour du contenu</a>
-        <a href="#8">Modification de l'appli</a>
-    </nav>
     
+<input type="radio" id="rad1" name="radsection" checked>
+<section id="1">
+    
+<h2>Présentation des PWA</h2>
 
+<p>Les Progressive Web Applications, introduites par Google autour de 2015, se présentent comme des applications 
+    natives qui sont en réalités des applications web s'exécutent dans un "application shell" (un navigateur qui 
+    s'exécute en plein écran, sans les barres d'adresse). 
+</p>    
+    
+<p>Les PWA se veulent : </p>
+    
+<ul>
+    <li><strong>Progressives</strong> :  
+        elles fonctionnent sur n'importe quel périphérique en intégrant les fonctionnalités disponibles du navigateur et de l'appareil utilisé.</li>
+    <li><strong>Sécurisées</strong> : 
+     afin de répondre aux problématiques de sécurité des échanges entre les utilisateurs et les sites, les PWA 
+        sont fiables et sûres par la mise en place d’un protocole HTTPS.</li>
+    <li><strong>Engageantes</strong> : 
+        elles proposent une expérience utilisateur immersive en plein écran et un réengagement facilité grâce à l'envoi de notifications push web.</li>
+    <li><strong>Installables</strong> :
+        l'utilisation d'un fichier manifest permet aux PWA de proposer, à l'instar d'une application mobile native, l'installation d'un raccourci sur l'écran d'accueil du terminal mobile.</li>
+    <li><strong>Rapides</strong> :
+        une fois le site chargé, la navigation doit se faire de manière rapide et fluide.
+    </li>
+    <li><strong>Optimisées pour le référencement</strong> :
+            utilisant les technologies du web, les progressive web app peuvent être référencées sur les moteurs 
+        de recherche de la même manière que n'importe quel site web classique.
+    </li>
+    <li><strong>Indépendantes de la connexion</strong> :
+        Grâce à la gestion du cache via l’utilisation d’un Service Worker, une fois le contenu chargé une première fois, il est possible de le consulter même dans les zones de faible connexion réseau.</li>
+</ul>    
+    
+<p>Par ailleurs, elles simplifient les coûts de développement, de maintenance, et leur mise à jour est facilitée. </p>    
+    
+    
+<h3>Slides de présentation utilisées en TP</h3>    
+    
+<iframe src="PWA.pdf" style="display: block; margin: 20px auto; width: 70vw; height: 40vw;"></iframe>
+
+</section>    
+    
+    
+    
+<input type="radio" id="rad2" name="radsection">
 <section id="2">
     
 <h2>Application mobile de travail</h2>
@@ -169,6 +205,7 @@
     
 </section>
                   
+<input type="radio" id="rad3" name="radsection">
 <section id="3">
     
     <h2>Déployer l'application en HTTPS</h2>
@@ -210,6 +247,7 @@
 </section>
     
     
+<input type="radio" id="rad4" name="radsection">
 <section id="4">
 
     <h2>Réaliser un audit de l'application</h2>
@@ -254,6 +292,7 @@
 </section>
     
     
+<input type="radio" id="rad5" name="radsection">
 <section id="5">
 
 <h2>Rendre l'application installable avec un fichier manifest</h2>
@@ -301,6 +340,7 @@ créez un fichier manifest pour l'application, que vous n'oublierez pas d'inclur
     
 </section>
 
+<input type="radio" id="rad6" name="radsection">
 <section id="6">    
 
     <h2>Rendez l'application utilisable hors ligne</h2>
@@ -352,6 +392,7 @@ créez un fichier manifest pour l'application, que vous n'oublierez pas d'inclur
 </section>    
     
 
+<input type="radio" id="rad7" name="radsection">
 <section id="7">
     
     <h2>Gérer les évolutions du contenu de l'application</h2>
@@ -419,6 +460,7 @@ créez un fichier manifest pour l'application, que vous n'oublierez pas d'inclur
 </section>
     
     
+<input type="radio" id="rad8" name="radsection">    
 <section id="8">
 
 <h2>Modifiez l'application pour transmettre le panier au serveur distant</h2> 
@@ -462,47 +504,17 @@ créez un fichier manifest pour l'application, que vous n'oublierez pas d'inclur
     
 
 
+    <nav>
+        <label for="rad1">Présentation des PWA</label>
+        <label for="rad2">Application mobile du TP</label>
+        <label for="rad3">Hébergement en HTTPS</label>
+        <label for="rad4">Auditer l'application</label>
+        <label for="rad5">Application installable</label>
+        <label for="rad6">Utilisation hors ligne</label>
+        <label for="rad7">Mise à jour du contenu</label>
+        <label for="rad8">Modification de l'appli</label>
+    </nav>
 
-<section id="1">
-    
-<h2>Présentation des PWA</h2>
-
-<p>Les Progressive Web Applications, introduites par Google autour de 2015, se présentent comme des applications 
-    natives qui sont en réalités des applications web s'exécutent dans un "application shell" (un navigateur qui 
-    s'exécute en plein écran, sans les barres d'adresse). 
-</p>    
-    
-<p>Les PWA se veulent : </p>
-    
-<ul>
-    <li><strong>Progressives</strong> :  
-        elles fonctionnent sur n'importe quel périphérique en intégrant les fonctionnalités disponibles du navigateur et de l'appareil utilisé.</li>
-    <li><strong>Sécurisées</strong> : 
-     afin de répondre aux problématiques de sécurité des échanges entre les utilisateurs et les sites, les PWA 
-        sont fiables et sûres par la mise en place d’un protocole HTTPS.</li>
-    <li><strong>Engageantes</strong> : 
-        elles proposent une expérience utilisateur immersive en plein écran et un réengagement facilité grâce à l'envoi de notifications push web.</li>
-    <li><strong>Installables</strong> :
-        l'utilisation d'un fichier manifest permet aux PWA de proposer, à l'instar d'une application mobile native, l'installation d'un raccourci sur l'écran d'accueil du terminal mobile.</li>
-    <li><strong>Rapides</strong> :
-        une fois le site chargé, la navigation doit se faire de manière rapide et fluide.
-    </li>
-    <li><strong>Optimisées pour le référencement</strong> :
-            utilisant les technologies du web, les progressive web app peuvent être référencées sur les moteurs 
-        de recherche de la même manière que n'importe quel site web classique.
-    </li>
-    <li><strong>Indépendantes de la connexion</strong> :
-        Grâce à la gestion du cache via l’utilisation d’un Service Worker, une fois le contenu chargé une première fois, il est possible de le consulter même dans les zones de faible connexion réseau.</li>
-</ul>    
-    
-<p>Par ailleurs, elles simplifient les coûts de développement, de maintenance, et leur mise à jour est facilitée. </p>    
-    
-    
-<h3>Slides de présentation utilisées en TP</h3>    
-    
-<iframe src="PWA.pdf" style="display: block; margin: 20px auto; width: 70vw; height: 40vw;"></iframe>
-
-</section>
 
     </main>
     

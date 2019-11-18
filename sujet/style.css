@@ -218,16 +218,6 @@ section:before {
     font-weight: bold;
 }
 
-section:target {
-    display: block;   
-}
-section[id="1"] {
-    display: block;   
-}
-section:target ~ section[id="1"] {
-    display: none;   
-}
-
 nav {
     counter-reset: link;
     position: fixed;    
@@ -236,14 +226,15 @@ nav {
     width: 240px;
     border: solid 1px #222;
 }
-nav a {
+
+nav label {
     counter-increment: link;
     display: block;
     padding: 1vw;
-    color: black !important;
+    color: grey;
     text-decoration: none !important;
 }
-nav a:before {
+nav label:before {
     content: counter(link) '.';
     padding-right: 3px;
 }
@@ -251,3 +242,41 @@ nav a:before {
 section p {
     padding: 0 10px;   
 }
+
+input[type="radio"] {
+    position: absolute; 
+    display: none;
+}
+input[type="radio"]:checked + section {
+    display: block;   
+}
+
+#rad1:checked ~ nav label:nth-child(2n+2),
+#rad1:checked ~ nav label:nth-child(2n+3),
+#rad2:checked ~ nav label:nth-child(2n+3),
+#rad2:checked ~ nav label:nth-child(2n+4),
+#rad3:checked ~ nav label:nth-child(2n+4),
+#rad3:checked ~ nav label:nth-child(2n+5),
+#rad4:checked ~ nav label:nth-child(2n+5),
+#rad4:checked ~ nav label:nth-child(2n+6),
+#rad5:checked ~ nav label:nth-child(2n+6),
+#rad5:checked ~ nav label:nth-child(2n+7),
+#rad6:checked ~ nav label:nth-child(2n+7),
+#rad6:checked ~ nav label:nth-child(2n+8),
+#rad7:checked ~ nav label:nth-child(2n+8),
+#rad7:checked ~ nav label:nth-child(2n+9){
+    color: black;   
+}
+
+#rad1:checked ~ nav label:nth-child(1),
+#rad2:checked ~ nav label:nth-child(2),
+#rad3:checked ~ nav label:nth-child(3),
+#rad4:checked ~ nav label:nth-child(4),
+#rad5:checked ~ nav label:nth-child(5),
+#rad6:checked ~ nav label:nth-child(6),
+#rad7:checked ~ nav label:nth-child(7),
+#rad8:checked ~ nav label:nth-child(8) {
+    color: blue;
+    margin-left: 10px; 
+}
+

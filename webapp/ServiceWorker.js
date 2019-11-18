@@ -46,23 +46,24 @@ self.addEventListener('install', function(e) {
 // fecthing data
 self.addEventListener('fetch', function(evt) {
 
-    console.log('[Service Worker] Fetching (data) ', evt.request.url);
+    var fichier = evt.request.url.substr(evt.request.url.lastIndexOf('/')+1);
+    
     // if requested on an updatable content, load it from the network and cache it
     if (updatableContent.some(function(uc) { return evt.request.url.indexOf(uc) >= 0; })) {
         evt.respondWith(
             caches.open(CACHE_NAME).then(function(cache) {
-                console.log("[Service worker] Trying to fetch from network");
+                console.log("[Service worker] Trying to fetch from network", fichier);
                 return fetch(evt.request)
                     .then(function (response) {
                     // If the response was OK, clone it and store it in the cache.
                     if (response.status === 200) {
-                        console.log("[Service worker] --> Network available, caching latest version");
+                        console.log("[Service worker] --> Network available, caching latest version", fichier);
                         cache.put(evt.request.url, response.clone());
                     }
                     return response;
                 }).catch(function (err) {
                     // Network request failed, try to get it from the cache.
-                    console.log("[Service worker] --> Network unavailable, using cached version");
+                    console.log("[Service worker] --> Network unavailable, using cached version", fichier);
                     return cache.match(evt.request);
                 });
             }));
@@ -70,7 +71,7 @@ self.addEventListener('fetch', function(evt) {
     }
     
     // otherwise load from cache by default, or fetch it if not present (and update cache)
-    console.log("[Service worker] --> Loading from cache if existing");
+    console.log("[Service worker] --> Loading from cache (if present)", fichier);
     evt.respondWith(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.match(evt.request)

@@ -1,7 +1,7 @@
 "use strict";
 
-//const TRANMISSION_URL = "http://dept-info.univ-fcomte.fr/licence/SAMP/";
-const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
+const TRANMISSION_URL = "https://dept-info.univ-fcomte.fr/licence/SAMP/";
+// const TRANMISSION_URL = "http://localhost/~fred/SAMP/";
 
 
 /************************************************************************

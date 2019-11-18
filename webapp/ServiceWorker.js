@@ -58,7 +58,7 @@ self.addEventListener('fetch', function(evt) {
                     .then(function (response) {
                     // If the response was OK, clone it and store it in the cache.
                     if (response.status === 200) {
-                        console.log("[Service worker] --> Network available, caching current version");
+                        console.log("[Service worker] --> Network available, caching latest version");
                         cache.put(evt.request.url, response.clone());
                     }
                     return response;

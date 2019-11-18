@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(_e) {
             bcSend.innerHTML = "<p>Les paramètres de votre compte sont incorrects.</p><p>Allez à la section \"Réglages\" pour les mettre à jour, et recommencez.</p>";
         }
         else {
-            bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><button id='btnTransmit'>Transmettre</button>";   
+            bcSend.innerHTML = "<p>Voulez-vous transmettre vos achats ?</p><p>Adresse " + TRANMISSION_URL + "</p><button id='btnTransmit'>Transmettre</button>";   
         }
         document.getElementById("radSend").checked = true;
     });

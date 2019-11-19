@@ -192,6 +192,7 @@ button:active, button:focus {
     top: 10vw;
     width: 0;
     height: 0;
+    border: none;
     overflow: visible;
 }
 #bcMain input[type=radio] {

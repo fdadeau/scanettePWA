@@ -102,7 +102,7 @@ a:hover {
     color: #0000FF;
 }
 
-a[href^="http"]:hover::after {
+a[href^="http"]:hover:not(.dont):after {
     content: " - " attr(href);
 }
 
@@ -222,21 +222,24 @@ nav {
     counter-reset: link;
     position: fixed;    
     left: 1vw;
-    margin: 10px 0;
+    margin: 20px 0;
     width: 240px;
-    border: solid 1px #222;
+    border: none;
 }
 
 nav label {
     counter-increment: link;
     display: block;
-    padding: 1vw;
+    padding: 1vw 0;
     color: grey;
     text-decoration: none !important;
+	background: #F7E0A5;
 }
 nav label:before {
     content: counter(link) '.';
-    padding-right: 3px;
+    padding: 3px; 
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 section p {
@@ -251,20 +254,13 @@ input[type="radio"]:checked + section {
     display: block;   
 }
 
-#rad1:checked ~ nav label:nth-child(2n+2),
-#rad1:checked ~ nav label:nth-child(2n+3),
-#rad2:checked ~ nav label:nth-child(2n+3),
-#rad2:checked ~ nav label:nth-child(2n+4),
-#rad3:checked ~ nav label:nth-child(2n+4),
-#rad3:checked ~ nav label:nth-child(2n+5),
-#rad4:checked ~ nav label:nth-child(2n+5),
-#rad4:checked ~ nav label:nth-child(2n+6),
-#rad5:checked ~ nav label:nth-child(2n+6),
-#rad5:checked ~ nav label:nth-child(2n+7),
-#rad6:checked ~ nav label:nth-child(2n+7),
-#rad6:checked ~ nav label:nth-child(2n+8),
-#rad7:checked ~ nav label:nth-child(2n+8),
-#rad7:checked ~ nav label:nth-child(2n+9){
+#rad1:checked ~ nav label:nth-child(n+2),
+#rad2:checked ~ nav label:nth-child(n+3),
+#rad3:checked ~ nav label:nth-child(n+4),
+#rad4:checked ~ nav label:nth-child(n+5),
+#rad5:checked ~ nav label:nth-child(n+6),
+#rad6:checked ~ nav label:nth-child(n+7),
+#rad7:checked ~ nav label:nth-child(n+8) {
     color: black;   
 }
 
@@ -276,7 +272,21 @@ input[type="radio"]:checked + section {
 #rad6:checked ~ nav label:nth-child(6),
 #rad7:checked ~ nav label:nth-child(7),
 #rad8:checked ~ nav label:nth-child(8) {
-    color: blue;
+    color: black;
+    font-weight: bold;
+    background-color: #F7C749;
+}
+
+#rad1:checked ~ nav label:nth-child(1):before,
+#rad2:checked ~ nav label:nth-child(2):before,
+#rad3:checked ~ nav label:nth-child(3):before,
+#rad4:checked ~ nav label:nth-child(4):before,
+#rad5:checked ~ nav label:nth-child(5):before,
+#rad6:checked ~ nav label:nth-child(6):before,
+#rad7:checked ~ nav label:nth-child(7):before,
+#rad8:checked ~ nav label:nth-child(8):before {
+    content: '\02630';
     margin-left: 10px; 
 }
+
 

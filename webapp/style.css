@@ -189,7 +189,37 @@ button:active, button:focus {
 #bcMain input[type=radio] {
     position: absolute; 
     display: none;
+    top: 10vw;
+    width: 0;
+    height: 0;
+    overflow: visible;
 }
+#bcMain input[type=radio] {
+    position: absolute; 
+    display: block;
+}
+#bcMain input[type=radio]:checked:after {
+    display: block;
+    box-sizing: content-box;
+    width: 0;
+    content: '';
+    height: 0;
+    border-bottom: solid 3vw #7B68EE;
+    border-left: solid 2vw transparent;
+    border-right: solid 2vw transparent;
+    top: -2.5vw;
+    position: absolute;
+}
+#bcMain #radBasket:checked {
+    left: 14vw;   
+}
+#bcMain #radParams:checked {
+    left: 50vw;   
+}
+#bcMain #radSend:checked {
+    right: 17vw;   
+}
+
 #bcMain input[type=radio] + div {
     display: none;   
 }

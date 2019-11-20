@@ -208,7 +208,7 @@ button:active, button:focus {
     border-bottom: solid 3vw #7B68EE;
     border-left: solid 2vw transparent;
     border-right: solid 2vw transparent;
-    top: -2.5vw;
+    top: -2vw;
     position: absolute;
 }
 #bcMain #radBasket:checked {
